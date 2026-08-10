@@ -318,8 +318,19 @@ const FB_CONFIG = {
   appId:       "REEMPLAZA"
 };
 
-firebase.initializeApp(FB_CONFIG);
-const db = firebase.database();
+let db = null;
+try {
+  firebase.initializeApp(FB_CONFIG);
+  db = firebase.database();
+  db.ref('reservations').on('value', snap => {
+    currentRsv = snap.val() || {};
+    renderGrid();
+  }, () => showToast('Sin conexión — intenta recargar'));
+} catch(e) {
+  console.warn('Firebase no configurado aún:', e.message);
+  try { currentRsv = JSON.parse(localStorage.getItem('matias_rsv') || '{}'); } catch {}
+  setTimeout(renderGrid, 0);
+}
 
 /* ── DATA ── */
 const CATS = {
@@ -379,14 +390,6 @@ const MY_TOKENS_KEY = 'matias_my_tokens';
 let myTokens = {};
 try { myTokens = JSON.parse(localStorage.getItem(MY_TOKENS_KEY) || '{}'); } catch {}
 function saveMyTokens() { localStorage.setItem(MY_TOKENS_KEY, JSON.stringify(myTokens)); }
-
-/* ── FIREBASE LISTENER (tiempo real) ── */
-db.ref('reservations').on('value', snap => {
-  currentRsv = snap.val() || {};
-  renderGrid();
-}, () => {
-  showToast('Sin conexión — intenta recargar');
-});
 
 /* ── STARS ── */
 (function(){
@@ -454,7 +457,13 @@ document.getElementById('cat-filter').addEventListener('click', e=>{
 /* ── RESERVE ── */
 function doReserve(id) {
   const token = Math.random().toString(36).slice(2);
-  db.ref('reservations/'+id).set({ date: new Date().toISOString(), token });
+  if (db) {
+    db.ref('reservations/'+id).set({ date: new Date().toISOString(), token });
+  } else {
+    currentRsv[id] = { date: new Date().toISOString(), token };
+    localStorage.setItem('matias_rsv', JSON.stringify(currentRsv));
+    renderGrid();
+  }
   myTokens[id] = token;
   saveMyTokens();
   const g = GIFTS.find(x=>x.id===id);
@@ -465,7 +474,13 @@ function doReserve(id) {
 /* ── RELEASE ── */
 function doRelease(id) {
   if(!myTokens[id]) return;
-  db.ref('reservations/'+id).remove();
+  if (db) {
+    db.ref('reservations/'+id).remove();
+  } else {
+    delete currentRsv[id];
+    localStorage.setItem('matias_rsv', JSON.stringify(currentRsv));
+    renderGrid();
+  }
   delete myTokens[id];
   saveMyTokens();
   showToast('Reserva cancelada');
