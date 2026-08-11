@@ -246,6 +246,7 @@ body{
 <div class="cat-bar">
   <div class="cat-inner" id="cat-filter">
     <button class="cat-pill active" data-cat="all">Todos</button>
+    <button class="cat-pill" data-cat="must">❤️ Indispensables</button>
     <button class="cat-pill" data-cat="habitacion">🏠 Habitación</button>
     <button class="cat-pill" data-cat="lactancia">🤱 Lactancia</button>
     <button class="cat-pill" data-cat="bano">🛁 Baño</button>
@@ -398,9 +399,9 @@ function cardHtml(g) {
 }
 
 function renderGrid() {
-  const list = filter==='all' ? GIFTS : GIFTS.filter(g=>g.cat===filter);
+  const list = filter==='all' ? GIFTS : filter==='must' ? GIFTS.filter(g=>g.p==='must') : GIFTS.filter(g=>g.cat===filter);
   const n = list.length;
-  const catLabel = filter==='all' ? '' : ` en ${CAT_LABELS[filter]}`;
+  const catLabel = filter==='all' ? '' : filter==='must' ? ' indispensables' : ` en ${CAT_LABELS[filter]}`;
   document.getElementById('section-label').textContent = `${n} ${n===1?'regalo':'regalos'}${catLabel}`;
   document.getElementById('gifts-grid').innerHTML = list.map(cardHtml).join('');
 }
