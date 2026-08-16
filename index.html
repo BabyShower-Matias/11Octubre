@@ -8,8 +8,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <style>
 :root {
-  --midnight:  #3A4A5A;
-  --deep-blue: #3A4A5A;
+  --midnight:  #A6D6F2;
+  --deep-blue: #A6D6F2;
   --sky:       #7D8CA3;
   --light-sky: #A6D6F2;
   --cream:     #F2EFEA;
@@ -42,7 +42,7 @@ body{
 }
 .banner-stars{position:absolute;inset:0;pointer-events:none;}
 .banner-star{
-  position:absolute;border-radius:50%;background:white;
+  position:absolute;border-radius:50%;background:rgba(58,74,90,.35);
   animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
 }
 @keyframes twinkle{0%,100%{opacity:var(--op,.7);}50%{opacity:.1;}}
@@ -65,17 +65,17 @@ body{
 .banner-eyebrow{
   position:relative;z-index:2;
   font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--light-sky);
+  color:rgba(58,74,90,.65);
 }
 .banner-name{
   position:relative;z-index:2;
-  font-size:clamp(2.6rem,10vw,4rem);line-height:1;color:#fff;
+  font-size:clamp(2.6rem,10vw,4rem);line-height:1;color:var(--text);
   font-family:'Palatino Linotype','Book Antiqua',Palatino,Georgia,serif;
-  font-style:italic;text-shadow:0 2px 20px rgba(0,0,0,.3);
+  font-style:italic;text-shadow:0 1px 8px rgba(255,255,255,.4);
 }
 .banner-sub{
   position:relative;z-index:2;
-  font-size:.82rem;color:rgba(168,205,224,.75);letter-spacing:.04em;
+  font-size:.82rem;color:rgba(58,74,90,.55);letter-spacing:.04em;
 }
 
 /* ── STICKY TOPBAR ── */
@@ -111,7 +111,7 @@ body{
   cursor:pointer;white-space:nowrap;transition:all .15s;font-family:inherit;min-height:36px;
 }
 .cat-pill:hover{border-color:var(--sky);color:var(--sky);}
-.cat-pill.active{background:var(--deep-blue);border-color:var(--deep-blue);color:white;}
+.cat-pill.active{background:var(--deep-blue);border-color:var(--deep-blue);color:var(--text);}
 
 /* ── GRID ── */
 .gifts-main{max-width:1100px;margin:0 auto;padding:1.25rem 1rem 5rem;}
@@ -126,7 +126,7 @@ body{
 
 /* ── GIFT CARD ── */
 .gift-card{
-  background:white;border-radius:14px;border:1px solid rgba(26,61,87,.07);
+  background:white;border-radius:14px;border:1px solid rgba(58,74,90,.07);
   box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;
   transition:transform .2s,box-shadow .2s,opacity .2s;
 }
@@ -155,11 +155,11 @@ body{
 
 .card-footer{padding:.7rem 1rem .95rem;border-top:1px solid var(--border);margin-top:.5rem;}
 .btn-reserve{
-  width:100%;padding:.7rem 1rem;background:var(--deep-blue);color:white;border:none;
+  width:100%;padding:.7rem 1rem;background:var(--deep-blue);color:var(--text);border:none;
   border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;
   font-family:inherit;transition:background .15s,transform .1s;min-height:46px;
 }
-.btn-reserve:hover{background:var(--midnight);}
+.btn-reserve:hover{background:#85C4EE;}
 .btn-reserve:active{transform:scale(.97);}
 .btn-reserved{
   width:100%;padding:.7rem 1rem;background:var(--rsv-bg);color:var(--rsv);
