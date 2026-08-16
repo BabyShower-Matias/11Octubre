@@ -40,7 +40,12 @@ body{
   padding:1.4rem 1.5rem 1.6rem;
   text-align:center;gap:.3rem;
 }
-.banner-stars{display:none;}
+.banner-stars{position:absolute;inset:0;pointer-events:none;}
+.banner-star{
+  position:absolute;border-radius:50%;background:#6BBECF;
+  animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
+}
+@keyframes twinkle{0%,100%{opacity:var(--op,.7);}50%{opacity:.1;}}
 .banner-cloud{
   position:absolute;height:18px;
   background:rgba(168,205,224,.1);border-radius:50px;
