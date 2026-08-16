@@ -78,28 +78,9 @@ body{
   font-size:.82rem;color:rgba(58,74,90,.55);letter-spacing:.04em;
 }
 
-/* ── STICKY TOPBAR ── */
-.topbar{
-  position:sticky;top:0;z-index:100;
-  background:rgba(250,247,242,.92);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);padding:.75rem 1.25rem;
-}
-.topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
-.topbar-logo{
-  font-size:1rem;color:var(--text);
-  font-family:'Palatino Linotype','Book Antiqua',Palatino,Georgia,serif;
-  font-style:italic;
-}
-.sync-dot{
-  width:8px;height:8px;border-radius:50%;background:var(--rsv);
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-
 /* ── CATEGORY BAR ── */
 .cat-bar{
-  position:sticky;top:46px;z-index:99;
+  position:sticky;top:0;z-index:99;
   background:var(--cream);border-bottom:1px solid var(--border);
   overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
 }
@@ -236,12 +217,6 @@ body{
   <p class="banner-sub">Lista de regalos</p>
 </header>
 
-<!-- STICKY NAV -->
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="sync-dot" title="Sincronizado en tiempo real"></div>
-  </div>
-</div>
 <div class="cat-bar">
   <div class="cat-inner" id="cat-filter">
     <button class="cat-pill active" data-cat="all">Todos</button>
