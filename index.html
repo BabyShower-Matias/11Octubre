@@ -33,16 +33,12 @@ body{
 
 /* ── BANNER HEADER ── */
 .page-banner{
-  background:url('img/banner-bg.jpg') center/cover;
+  background:var(--midnight);
   position:relative;overflow:hidden;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   padding:1.4rem 1.5rem 1.6rem;
   text-align:center;gap:.3rem;
-}
-.page-banner::before{
-  content:'';position:absolute;inset:0;
-  background:rgba(255,255,255,.30);pointer-events:none;
 }
 .banner-stars{display:none;}
 .banner-cloud{
