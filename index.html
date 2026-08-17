@@ -230,7 +230,7 @@ body{
     <button class="cat-pill" data-cat="bano">🛁 Baño</button>
     <button class="cat-pill" data-cat="paseos">🚗 Paseos</button>
     <button class="cat-pill" data-cat="alimentacion">🍼 Alimentación</button>
-    <button class="cat-pill" data-cat="panales">🩹 Pañales</button>
+    <button class="cat-pill" data-cat="panales">🤍 Todos pueden llevar</button>
     <button class="cat-pill" data-cat="actividades">🧸 Juegos</button>
     <button class="cat-pill" data-cat="ropa">👕 Ropita</button>
     <button class="cat-pill" data-cat="especiales">🎁 Especiales</button>
@@ -312,7 +312,7 @@ const GIFTS = [
   {id:20, name:'Pañales talla 1',                  full:'Pañales talla 1 (para bebés de 2 a 5 kg)',                                cat:'panales',      p:'must', qty:2, img:'img/p20.jpg'},
   {id:21, name:'Pañales talla 2',                  full:'Pañales talla 2 (para bebés de 4 a 8 kg)',                                cat:'panales',      p:'nice', qty:1, img:'img/p21.jpg'},
   {id:22, name:'Toallitas húmedas para bebé',      full:'Toallitas húmedas para piel sensible',                                   cat:'panales',      p:'must', qty:1, img:'img/p22.jpg'},
-  {id:23, name:'Protectores impermeables',         full:'Protectores acolchados impermeables para cama del bebé — x2',             cat:'panales',      p:'nice', qty:1, img:'img/p23.jpg'},
+  {id:23, name:'Protectores impermeables',         full:'Protectores acolchados impermeables para la cama del bebé',              cat:'habitacion',   p:'nice', qty:1, img:'img/p23.jpg'},
   {id:24, name:'Vaselina para bebé',               full:'Vaselina protectora para la piel del bebé',                               cat:'panales',      p:'nice', qty:1, img:'img/p24.jpg'},
   {id:25, name:'Crema para pañalitis',             full:'Crema vitamina A&D para prevenir y tratar la pañalitis',                  cat:'panales',      p:'must', qty:1, img:'img/p25.jpg'},
   {id:26, name:'Tapete de juego',                  full:'Tapete de juego con arco y juguetes colgantes para estimulación',         cat:'actividades',  p:'must', qty:1, img:'img/p26.jpg'},
@@ -343,7 +343,7 @@ GIFTS.filter(g=>g.cat==='panales' && g.id!==23).forEach(g=>g.open=true);
 const CAT_LABELS = {
   all:'Todos los regalos',habitacion:'Habitación',lactancia:'Lactancia',
   bano:'Baño',paseos:'Paseos',alimentacion:'Alimentación',
-  panales:'Pañales',actividades:'Juegos',ropa:'Ropita',especiales:'Especiales',
+  panales:'Todos pueden llevar',actividades:'Juegos',ropa:'Ropita',especiales:'Especiales',
   mine:'Mis reservas',
 };
 
