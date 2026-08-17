@@ -8,20 +8,20 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <style>
 :root {
-  --midnight:  #C3E8F2;
-  --deep-blue: #6BBECF;
-  --sky:       #5AAFBF;
-  --light-sky: #C3E8F2;
-  --cream:     #F2EFEA;
-  --warm:      #F2EFEA;
-  --border:    #D8C3A5;
-  --text:      #3A4A5A;
-  --text-mid:  #7D8CA3;
-  --text-lt:   #A6B0BC;
+  --midnight:  #1B3F7A;
+  --deep-blue: #1B3F7A;
+  --sky:       #4472B0;
+  --light-sky: #A8C8E8;
+  --cream:     #FDF5E8;
+  --warm:      #FDF5E8;
+  --border:    #E0D5B8;
+  --text:      #1B3F7A;
+  --text-mid:  #4472B0;
+  --text-lt:   #8AAAC8;
   --must-bg:   #FDE8E8; --must: #C84040;
   --rsv-bg:    #E6F6F5; --rsv:  #2E8E8E;
-  --sh:   0 2px 16px rgba(58,74,90,.09);
-  --sh-lg: 0 8px 32px rgba(58,74,90,.15);
+  --sh:   0 2px 16px rgba(27,63,122,.09);
+  --sh-lg: 0 8px 32px rgba(27,63,122,.15);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -42,7 +42,7 @@ body{
 }
 .banner-stars{position:absolute;inset:0;pointer-events:none;}
 .banner-star{
-  position:absolute;border-radius:50%;background:#6BBECF;
+  position:absolute;border-radius:50%;background:var(--light-sky);
   animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
 }
 @keyframes twinkle{0%,100%{opacity:var(--op,.7);}50%{opacity:.1;}}
@@ -65,17 +65,17 @@ body{
 .banner-eyebrow{
   position:relative;z-index:2;
   font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(58,74,90,.65);
+  color:rgba(168,200,232,.85);
 }
 .banner-name{
   position:relative;z-index:2;
-  font-size:clamp(2.6rem,10vw,4rem);line-height:1;color:var(--text);
+  font-size:clamp(2.6rem,10vw,4rem);line-height:1;color:#fff;
   font-family:'Palatino Linotype','Book Antiqua',Palatino,Georgia,serif;
-  font-style:italic;text-shadow:0 1px 8px rgba(255,255,255,.4);
+  font-style:italic;text-shadow:0 2px 20px rgba(0,0,0,.2);
 }
 .banner-sub{
   position:relative;z-index:2;
-  font-size:.82rem;color:rgba(58,74,90,.55);letter-spacing:.04em;
+  font-size:.82rem;color:rgba(168,200,232,.75);letter-spacing:.04em;
 }
 
 /* ── CATEGORY BAR ── */
@@ -92,7 +92,7 @@ body{
   cursor:pointer;white-space:nowrap;transition:all .15s;font-family:inherit;min-height:36px;
 }
 .cat-pill:hover{border-color:var(--sky);color:var(--sky);}
-.cat-pill.active{background:var(--deep-blue);border-color:var(--deep-blue);color:var(--text);}
+.cat-pill.active{background:var(--deep-blue);border-color:var(--deep-blue);color:white;}
 
 /* ── GRID ── */
 .gifts-main{max-width:1100px;margin:0 auto;padding:1.25rem 1rem 5rem;}
@@ -136,7 +136,7 @@ body{
 
 .card-footer{padding:.7rem 1rem .95rem;border-top:1px solid var(--border);margin-top:.5rem;}
 .btn-reserve{
-  width:100%;padding:.7rem 1rem;background:var(--deep-blue);color:var(--text);border:none;
+  width:100%;padding:.7rem 1rem;background:var(--deep-blue);color:white;border:none;
   border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;
   font-family:inherit;transition:background .15s,transform .1s;min-height:46px;
 }
