@@ -97,7 +97,15 @@ body{
 
 /* ── GRID ── */
 .gifts-main{max-width:1100px;margin:0 auto;padding:1.25rem 1rem 5rem;}
-.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-lt);margin-bottom:1rem;}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-lt);margin-bottom:.6rem;}
+.cat-desc-note{
+  font-size:.87rem;color:var(--text-mid);line-height:1.7;
+  background:rgba(168,200,232,.15);border-radius:10px;
+  padding:.85rem 1.1rem;margin-bottom:1rem;
+  border-left:3px solid var(--light-sky);
+  display:none;
+}
+.cat-desc-note.visible{display:block;}
 .gifts-grid{
   display:grid;
   grid-template-columns:1fr;
@@ -240,6 +248,7 @@ body{
 <!-- GRID -->
 <main class="gifts-main">
   <p class="section-label" id="section-label"></p>
+  <div id="cat-desc" class="cat-desc-note"></div>
   <div class="gifts-grid" id="gifts-grid">
     <p style="color:var(--text-mid);text-align:center;padding:3rem;grid-column:1/-1;">Cargando regalos...</p>
   </div>
@@ -446,6 +455,13 @@ function renderGrid() {
   const n = list.length;
   const grid = document.getElementById('gifts-grid');
   const label = document.getElementById('section-label');
+  const descEl = document.getElementById('cat-desc');
+  if (filter === 'panales') {
+    descEl.textContent = 'Estos regalos los puede llevar cualquier persona — ¡no hay límite! Dentro de cada tarjeta verás cuántas personas ya planean traerlo, para que puedas elegir con más información. Selecciona el que quieras y quedará guardado en tus reservas.';
+    descEl.classList.add('visible');
+  } else {
+    descEl.classList.remove('visible');
+  }
 
   if (filter==='mine') {
     label.textContent = n ? `${n} ${n===1?'regalo':'regalos'} que reservaste` : '';
