@@ -65,17 +65,18 @@ body{
 .banner-eyebrow{
   position:relative;z-index:2;
   font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(168,200,232,.85);
+  color:rgba(168,200,232,.85);text-shadow:0 1px 8px rgba(0,0,0,.25);
 }
 .banner-name{
   position:relative;z-index:2;
   font-size:clamp(2.6rem,10vw,4rem);line-height:1;color:#fff;
   font-family:'Palatino Linotype','Book Antiqua',Palatino,Georgia,serif;
-  font-style:italic;text-shadow:0 2px 20px rgba(0,0,0,.2);
+  font-style:italic;text-shadow:0 2px 20px rgba(0,0,0,.3),0 1px 4px rgba(0,0,0,.2);
 }
 .banner-sub{
   position:relative;z-index:2;
   font-size:.82rem;color:rgba(168,200,232,.75);letter-spacing:.04em;
+  text-shadow:0 1px 8px rgba(0,0,0,.25);
 }
 
 /* ── CATEGORY BAR ── */
@@ -379,7 +380,7 @@ function cardHtml(g) {
   const rsvNote= r ? `<div class="card-rsv">✓ Ya reservado</div>` : '';
   const btn = r
     ? isMine
-      ? `<button class="btn-reserved" onclick="doRelease(${g.id})">Reservado ✓ — cancelar</button>`
+      ? `<button class="btn-reserved" onclick="doRelease(${g.id})">Eliminar de mis reservas</button>`
       : `<button class="btn-reserved locked">Reservado ✓</button>`
     : `<button class="btn-reserve" onclick="doReserve(${g.id})">Reservar 🤍</button>`;
   return `<div class="gift-card${r?' is-reserved':''}" id="card-${g.id}">
