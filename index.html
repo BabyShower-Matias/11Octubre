@@ -308,14 +308,13 @@ const GIFTS = [
   {id:15, name:'Silla de comer portátil',          full:'Silla de comer portátil y plegable, 2 en 1',                              cat:'alimentacion', p:'nice', qty:1, img:'img/p15.jpg'},
   {id:16, name:'Baberos de silicona',              full:'Baberos de silicona con bolsillo recolector',                             cat:'alimentacion', p:'nice', qty:1, img:'img/p16.jpg'},
   {id:17, name:'Paños de tela pequeños',           full:'Paños suaves de muselina para bebé, multiusos',                          cat:'alimentacion', p:'nice', qty:1, img:'img/p17.jpg'},
-  {id:18, name:'Pañales Newborn — paquete grande', full:'Pañales para recién nacido, talla 0 — paquete grande',                    cat:'panales',      p:'must', qty:1, img:'img/p18.jpg'},
-  {id:19, name:'Pañales Newborn — paquete pequeño',full:'Pañales para recién nacido, talla 0 — paquete pequeño',                  cat:'panales',      p:'must', qty:1, img:'img/p19.jpg'},
+  {id:19, name:'Pañales Newborn',                   full:'Pañales para recién nacido, talla 0',                                   cat:'panales',      p:'must', qty:1, img:'img/p19.jpg'},
   {id:20, name:'Pañales talla 1',                  full:'Pañales talla 1 (para bebés de 2 a 5 kg)',                                cat:'panales',      p:'must', qty:2, img:'img/p20.jpg'},
   {id:21, name:'Pañales talla 2',                  full:'Pañales talla 2 (para bebés de 4 a 8 kg)',                                cat:'panales',      p:'nice', qty:1, img:'img/p21.jpg'},
-  {id:22, name:'Toallitas húmedas para bebé',      full:'Toallitas húmedas para piel sensible — paquete grande',                   cat:'panales',      p:'must', qty:1, img:'img/p22.jpg'},
+  {id:22, name:'Toallitas húmedas para bebé',      full:'Toallitas húmedas para piel sensible',                                   cat:'panales',      p:'must', qty:1, img:'img/p22.jpg'},
   {id:23, name:'Protectores impermeables',         full:'Protectores acolchados impermeables para cama del bebé — x2',             cat:'panales',      p:'nice', qty:1, img:'img/p23.jpg'},
-  {id:24, name:'Vaselina para bebé',               full:'Vaselina protectora para la piel del bebé',                               cat:'panales',      p:'nice', qty:3, img:'img/p24.jpg'},
-  {id:25, name:'Crema para pañalitis',             full:'Crema vitamina A&D para prevenir y tratar la pañalitis',                  cat:'panales',      p:'must', qty:3, img:'img/p25.jpg'},
+  {id:24, name:'Vaselina para bebé',               full:'Vaselina protectora para la piel del bebé',                               cat:'panales',      p:'nice', qty:1, img:'img/p24.jpg'},
+  {id:25, name:'Crema para pañalitis',             full:'Crema vitamina A&D para prevenir y tratar la pañalitis',                  cat:'panales',      p:'must', qty:1, img:'img/p25.jpg'},
   {id:26, name:'Tapete de juego',                  full:'Tapete de juego con arco y juguetes colgantes para estimulación',         cat:'actividades',  p:'must', qty:1, img:'img/p26.jpg'},
   {id:27, name:'Portabebés / Cargador',            full:'Portabebés envolvente suave para recién nacido',                          cat:'actividades',  p:'must', qty:1, img:'img/p27.jpg'},
   {id:28, name:'Mamelucos / Bodysuits',            full:'Pack de mamelucos de manga corta para bebé recién nacido',                cat:'ropa',         p:'nice', qty:1, img:'img/p28.jpg'},
@@ -339,7 +338,7 @@ const GIFTS = [
 ];
 
 /* Pañales category: open contributions — no limit on who can mark them */
-GIFTS.filter(g=>g.cat==='panales').forEach(g=>g.open=true);
+GIFTS.filter(g=>g.cat==='panales' && g.id!==23).forEach(g=>g.open=true);
 
 const CAT_LABELS = {
   all:'Todos los regalos',habitacion:'Habitación',lactancia:'Lactancia',
