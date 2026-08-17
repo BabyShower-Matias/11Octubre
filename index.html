@@ -93,9 +93,6 @@ body{
 }
 .cat-pill:hover{border-color:var(--sky);color:var(--sky);}
 .cat-pill.active{background:var(--deep-blue);border-color:var(--deep-blue);color:white;}
-.cat-pill-mine{border-color:var(--rsv);color:var(--rsv);}
-.cat-pill-mine:hover{border-color:var(--rsv);color:var(--rsv);}
-.cat-pill-mine.active{background:var(--rsv);border-color:var(--rsv);color:white;}
 
 /* ── GRID ── */
 .gifts-main{max-width:1100px;margin:0 auto;padding:1.25rem 1rem 5rem;}
@@ -223,6 +220,7 @@ body{
 <div class="cat-bar">
   <div class="cat-inner" id="cat-filter">
     <button class="cat-pill active" data-cat="all">Todos</button>
+    <button class="cat-pill" data-cat="mine">💙 Mis reservas</button>
     <button class="cat-pill" data-cat="must">❤️ Indispensables</button>
     <button class="cat-pill" data-cat="habitacion">🏠 Habitación</button>
     <button class="cat-pill" data-cat="lactancia">🤱 Lactancia</button>
@@ -233,7 +231,6 @@ body{
     <button class="cat-pill" data-cat="actividades">🧸 Juegos</button>
     <button class="cat-pill" data-cat="ropa">👕 Ropita</button>
     <button class="cat-pill" data-cat="especiales">🎁 Especiales</button>
-    <button class="cat-pill cat-pill-mine" data-cat="mine">🎀 Mis reservas</button>
   </div>
 </div>
 
@@ -271,6 +268,9 @@ const FB_CONFIG = {
   appId:       "1:388088589718:web:c7e4d1145d066adcdc41b7"
 };
 
+/* Render immediately so gifts appear without waiting for Firebase */
+renderGrid();
+
 let db = null;
 try {
   firebase.initializeApp(FB_CONFIG);
@@ -282,7 +282,7 @@ try {
 } catch(e) {
   console.warn('Firebase:', e.message);
   try { currentRsv = JSON.parse(localStorage.getItem('matias_rsv') || '{}'); } catch {}
-  setTimeout(renderGrid, 0);
+  renderGrid();
 }
 
 /* ── DATA ── */
