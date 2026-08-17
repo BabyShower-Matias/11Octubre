@@ -374,7 +374,7 @@ function cardHtml(g) {
     ? isMine
       ? `<button class="btn-reserved" onclick="doRelease(${g.id})">Reservado ✓ — cancelar</button>`
       : `<button class="btn-reserved locked">Reservado ✓</button>`
-    : `<button class="btn-reserve" onclick="doReserve(${g.id})">Reservar 💙</button>`;
+    : `<button class="btn-reserve" onclick="doReserve(${g.id})">Reservar 🤍</button>`;
   return `<div class="gift-card${r?' is-reserved':''}" id="card-${g.id}">
     <div class="card-img-wrap">
       <img class="card-img" src="${g.img}" alt="${esc(g.name)}" loading="lazy">
