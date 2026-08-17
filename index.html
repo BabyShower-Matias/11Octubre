@@ -128,12 +128,14 @@ body{
   letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:100px;
 }
 .badge-must{background:var(--must-bg);color:var(--must);}
+.badge-open{background:rgba(27,63,122,.12);color:var(--midnight);font-size:.6rem;}
 
 .card-body{padding:.9rem 1rem .5rem;flex:1;display:flex;flex-direction:column;}
 .card-name{font-size:1rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:.25rem;}
 .card-full{font-size:.84rem;color:var(--text-mid);line-height:1.45;flex:1;}
 .card-qty{font-size:.76rem;color:var(--text-lt);margin-top:.3rem;}
 .card-rsv{font-size:.78rem;color:var(--rsv);font-weight:600;margin-top:.3rem;}
+.card-contrib{font-size:.78rem;color:var(--sky);font-weight:600;margin-top:.3rem;}
 
 .card-footer{padding:.7rem 1rem .95rem;border-top:1px solid var(--border);margin-top:.5rem;}
 .btn-reserve{
@@ -277,6 +279,10 @@ try {
     currentRsv = snap.val() || {};
     renderGrid();
   }, () => showToast('Sin conexión — intenta recargar'));
+  db.ref('contributions').on('value', snap => {
+    currentContrib = snap.val() || {};
+    renderGrid();
+  });
 } catch(e) {
   console.warn('Firebase:', e.message);
   try { currentRsv = JSON.parse(localStorage.getItem('matias_rsv') || '{}'); } catch {}
@@ -332,6 +338,9 @@ const GIFTS = [
   {id:46, name:'Cubierta de lactancia materna',      full:'Cubierta de muselina 100% algodón para lactancia con aro rígido',                 cat:'lactancia',    p:'nice', qty:1, img:'img/p46.jpg'},
 ];
 
+/* Pañales category: open contributions — no limit on who can mark them */
+GIFTS.filter(g=>g.cat==='panales').forEach(g=>g.open=true);
+
 const CAT_LABELS = {
   all:'Todos los regalos',habitacion:'Habitación',lactancia:'Lactancia',
   bano:'Baño',paseos:'Paseos',alimentacion:'Alimentación',
@@ -341,6 +350,9 @@ const CAT_LABELS = {
 
 /* ── STATE ── */
 let currentRsv = {};
+let currentContrib = {};
+let deviceToken = localStorage.getItem('matias_device') ||
+  (()=>{ const t=Math.random().toString(36).slice(2); localStorage.setItem('matias_device',t); return t; })();
 let filter = 'all';
 
 const MY_TOKENS_KEY = 'matias_my_tokens';
@@ -373,11 +385,39 @@ renderGrid();
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function cardHtml(g) {
-  const r     = currentRsv[g.id];
+  const r      = currentRsv[g.id];
   const isMine = !!myTokens[g.id];
-  const badge  = g.p==='must' ? '<span class="priority-badge badge-must">❤️ Indispensable</span>' : '';
-  const qtyNote= g.qty>1 ? `<div class="card-qty">Se necesitan ${g.qty} unidades</div>` : '';
-  const rsvNote= r ? `<div class="card-rsv">✓ Ya reservado</div>` : '';
+
+  /* ── open / contribution item (pañales) ── */
+  if (g.open) {
+    const contribs  = currentContrib[g.id] || {};
+    const count     = Object.keys(contribs).length;
+    const iContrib  = !!contribs[deviceToken];
+    const countNote = count > 0
+      ? `<div class="card-contrib">🤍 ${count} ${count===1?'persona':'personas'} ${count===1?'lo llevará':'lo llevarán'}</div>`
+      : '';
+    const btn = iContrib
+      ? `<button class="btn-reserved" onclick="doRelease(${g.id})">Eliminar de mis reservas</button>`
+      : `<button class="btn-reserve" onclick="doReserve(${g.id})">Voy a llevar 🤍</button>`;
+    return `<div class="gift-card" id="card-${g.id}">
+      <div class="card-img-wrap">
+        <img class="card-img" src="${g.img}" alt="${esc(g.name)}" loading="lazy">
+        <span class="priority-badge badge-open">Todos pueden llevar</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${esc(g.name)}</div>
+        <div class="card-full">${esc(g.full)}</div>
+        ${g.qty>1?`<div class="card-qty">Se necesitan ${g.qty} unidades</div>`:''}
+        ${countNote}
+      </div>
+      <div class="card-footer">${btn}</div>
+    </div>`;
+  }
+
+  /* ── regular reservation item ── */
+  const badge   = g.p==='must' ? '<span class="priority-badge badge-must">❤️ Indispensable</span>' : '';
+  const qtyNote = g.qty>1 ? `<div class="card-qty">Se necesitan ${g.qty} unidades</div>` : '';
+  const rsvNote = r ? `<div class="card-rsv">✓ Ya reservado</div>` : '';
   const btn = r
     ? isMine
       ? `<button class="btn-reserved" onclick="doRelease(${g.id})">Eliminar de mis reservas</button>`
@@ -441,6 +481,21 @@ document.getElementById('cat-filter').addEventListener('click', e=>{
 
 /* ── RESERVE ── */
 function doReserve(id) {
+  const g = GIFTS.find(x=>x.id===id);
+  if (g.open) {
+    if (db) {
+      db.ref('contributions/'+id+'/'+deviceToken).set(true);
+    } else {
+      if (!currentContrib[id]) currentContrib[id] = {};
+      currentContrib[id][deviceToken] = true;
+      renderGrid();
+    }
+    myTokens[id] = deviceToken;
+    saveMyTokens();
+    document.getElementById('modal-chip').textContent = `🎁 ${g.name}`;
+    document.getElementById('modal').classList.add('open');
+    return;
+  }
   const token = Math.random().toString(36).slice(2);
   if (db) {
     db.ref('reservations/'+id).set({ date: new Date().toISOString(), token });
@@ -451,7 +506,6 @@ function doReserve(id) {
   }
   myTokens[id] = token;
   saveMyTokens();
-  const g = GIFTS.find(x=>x.id===id);
   document.getElementById('modal-chip').textContent = `🎁 ${g.name}`;
   document.getElementById('modal').classList.add('open');
 }
@@ -459,6 +513,18 @@ function doReserve(id) {
 /* ── RELEASE ── */
 function doRelease(id) {
   if(!myTokens[id]) return;
+  const g = GIFTS.find(x=>x.id===id);
+  if (g.open) {
+    if (db) {
+      db.ref('contributions/'+id+'/'+deviceToken).remove();
+    } else {
+      if (currentContrib[id]) { delete currentContrib[id][deviceToken]; renderGrid(); }
+    }
+    delete myTokens[id];
+    saveMyTokens();
+    showToast('Eliminado de tus reservas');
+    return;
+  }
   if (db) {
     db.ref('reservations/'+id).remove();
   } else {
