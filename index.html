@@ -83,10 +83,14 @@ body{
 .cat-bar{
   position:sticky;top:0;z-index:99;
   background:var(--cream);border-bottom:1px solid var(--border);
-  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
 }
-.cat-bar::-webkit-scrollbar{display:none;}
-.cat-inner{display:flex;gap:.4rem;padding:.6rem 1.25rem;width:max-content;}
+.cat-top{display:flex;gap:.4rem;padding:.55rem 1.25rem .4rem;flex-wrap:wrap;}
+.cat-scroll{
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  border-top:1px solid var(--border);
+}
+.cat-scroll::-webkit-scrollbar{display:none;}
+.cat-inner{display:flex;gap:.4rem;padding:.4rem 1.25rem .55rem;width:max-content;}
 .cat-pill{
   padding:.45rem 1rem;border:1.5px solid var(--border);border-radius:100px;
   font-size:.85rem;font-weight:500;color:var(--text-mid);background:white;
@@ -247,20 +251,24 @@ body{
   <p><span class="icon">💙</span><span>En <strong>Mis reservas</strong> puedes ver o cancelar tus elecciones en cualquier momento.</span></p>
 </div>
 
-<div class="cat-bar">
-  <div class="cat-inner" id="cat-filter">
+<div class="cat-bar" id="cat-filter">
+  <div class="cat-top">
     <button class="cat-pill active" data-cat="all">Todos</button>
     <button class="cat-pill" data-cat="mine">💙 Mis reservas</button>
-    <button class="cat-pill" data-cat="must">❤️ Indispensables</button>
     <button class="cat-pill" data-cat="panales">🤍 Regalos que todos pueden llevar</button>
-    <button class="cat-pill" data-cat="habitacion">🏠 Habitación</button>
-    <button class="cat-pill" data-cat="lactancia">🤱 Lactancia</button>
-    <button class="cat-pill" data-cat="bano">🛁 Baño</button>
-    <button class="cat-pill" data-cat="paseos">🚗 Paseos</button>
-    <button class="cat-pill" data-cat="alimentacion">🍼 Alimentación</button>
-    <button class="cat-pill" data-cat="actividades">🧸 Juegos</button>
-    <button class="cat-pill" data-cat="ropa">👕 Ropita</button>
-    <button class="cat-pill" data-cat="especiales">🎁 Especiales</button>
+  </div>
+  <div class="cat-scroll">
+    <div class="cat-inner">
+      <button class="cat-pill" data-cat="must">❤️ Indispensables</button>
+      <button class="cat-pill" data-cat="habitacion">🏠 Habitación</button>
+      <button class="cat-pill" data-cat="lactancia">🤱 Lactancia</button>
+      <button class="cat-pill" data-cat="bano">🛁 Baño</button>
+      <button class="cat-pill" data-cat="paseos">🚗 Paseos</button>
+      <button class="cat-pill" data-cat="alimentacion">🍼 Alimentación</button>
+      <button class="cat-pill" data-cat="actividades">🧸 Juegos</button>
+      <button class="cat-pill" data-cat="ropa">👕 Ropita</button>
+      <button class="cat-pill" data-cat="especiales">🎁 Especiales</button>
+    </div>
   </div>
 </div>
 
@@ -476,7 +484,7 @@ function renderGrid() {
   const label = document.getElementById('section-label');
   const descEl = document.getElementById('cat-desc');
   if (filter === 'panales') {
-    descEl.textContent = 'Estos regalos los puede llevar cualquier persona — ¡no hay límite! Dentro de cada tarjeta verás cuántas personas ya planean traerlo, para que puedas elegir con más información. Selecciona el que quieras y quedará guardado en tus reservas.';
+    descEl.textContent = 'Estos regalos los puede llevar cualquier persona — ¡no hay límite! Dentro de cada regalo verás cuántas personas ya planean traerlo, para que puedas elegir con más información. Selecciona el que quieras y quedará guardado en tus reservas.';
     descEl.classList.add('visible');
   } else {
     descEl.classList.remove('visible');
