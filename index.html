@@ -196,6 +196,18 @@ body{
 }
 .btn-close:hover{background:var(--midnight);}
 
+.how-it-works{
+  background:white;border-bottom:1px solid var(--border);
+  padding:.95rem 1.4rem;display:flex;flex-direction:column;gap:.45rem;
+}
+.how-it-works p{font-size:.83rem;color:var(--text-mid);line-height:1.55;display:flex;align-items:flex-start;gap:.55rem;}
+.how-it-works p span.icon{flex-shrink:0;font-size:1rem;margin-top:.05rem;}
+.how-it-works strong{color:var(--text);font-weight:600;}
+@media(min-width:640px){
+  .how-it-works{flex-direction:row;justify-content:center;gap:1.75rem;padding:.9rem 2rem;}
+  .how-it-works p{max-width:260px;}
+}
+
 .page-footer{
   text-align:center;padding:2rem 1.25rem;color:var(--text-mid);font-size:.9rem;
   border-top:1px solid var(--border);
@@ -228,6 +240,12 @@ body{
   <h1 class="banner-name">Matías</h1>
   <p class="banner-sub">Lista de regalos</p>
 </header>
+
+<div class="how-it-works">
+  <p><span class="icon">🎁</span><span>Elige el regalo que quieres llevar y toca <strong>Reservar</strong> — quedará guardado solo para ti y nadie más podrá elegirlo.</span></p>
+  <p><span class="icon">👆</span><span>Desliza las <strong>categorías</strong> hacia la derecha para explorar los regalos por tipo.</span></p>
+  <p><span class="icon">💙</span><span>En <strong>Mis reservas</strong> puedes ver o cancelar tus elecciones en cualquier momento.</span></p>
+</div>
 
 <div class="cat-bar">
   <div class="cat-inner" id="cat-filter">
