@@ -480,8 +480,12 @@ function renderGrid() {
     return;
   }
 
-  const catLabel = filter==='all' ? '' : filter==='must' ? ' indispensables' : ` en ${CAT_LABELS[filter]}`;
-  label.textContent = `${n} ${n===1?'regalo':'regalos'}${catLabel}`;
+  if (filter==='panales') {
+    label.textContent = `${n} Regalos que todos pueden llevar`;
+  } else {
+    const catLabel = filter==='all' ? '' : filter==='must' ? ' indispensables' : ` en ${CAT_LABELS[filter]}`;
+    label.textContent = `${n} ${n===1?'regalo':'regalos'}${catLabel}`;
+  }
   grid.innerHTML = list.map(cardHtml).join('');
 }
 
